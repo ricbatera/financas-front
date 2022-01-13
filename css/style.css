@@ -1,0 +1,192 @@
+/* RESET CSS */
+
+body{
+    font-family: 'Nunito', Arial, Helvetica, sans-serif;
+    color: #222;
+}
+body, p, ul, li, a, h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+img{
+    display: block;
+    max-width: 100%;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* MODAL - GERAL */
+
+.container-modal, .modal-pagar-container{
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, .85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+}
+
+.esconde{
+    display: none;
+}
+
+.container-form-modal, .pagar-form-modal{
+    width: 800px;
+    height: 500px;
+    background-color: #fff;
+}
+
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+textarea{
+    resize: none;
+}
+
+.pagar-content{
+    display: flex;
+    flex-direction: column;
+}
+/* .pagar-content h3{
+    width: 100%;
+    
+} */
+
+/* MENU LATERAL */
+
+.box-meses{
+    display: flex;
+    height: 200px;
+    width: 200px;
+    flex-wrap: wrap;
+    font-size: 1.2em;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-meses span{
+    padding: 10px;
+    cursor: pointer;
+}
+
+.selecionado{
+    background-color: rgba(0, 0, 0, .4);
+    color: #fff;
+}
+
+/* painel leitura */
+
+.painel-leitura{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+.dashboard{
+    display: flex;
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+.titulo-secao{
+    position: absolute;
+    font-size: 2em;
+    color: #222;
+    font-weight: 100;
+    top: 5px;
+    left: 10px;
+}
+.entradas{
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(204, 255, 204, .5);
+    padding-top: 50px;
+}
+
+.saidas{
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(255, 229, 204, .5);
+    padding-top: 50px;
+}
+
+.card-padrao{
+    height: 100px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+}
+
+/* listagem */
+.container-geral{
+    height: 100vh;
+    width: 100vw;
+    background-color: #fff;
+    display: flex;
+}
+
+.menu-lateral{
+    flex: 1;
+    width: 100%;
+    background-color: rgba(153, 204, 255, .5);
+}
+
+.painel-leitura{
+    flex: 4;
+    width: 100%;
+}
+
+/* formatação da tabela */
+
+table, th, td{
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 5px 10px;
+    text-align: center;
+}
+
+table tr:nth-child(odd){
+    background-color: rgba(0, 0, 0, .03);
+}
+table tr:nth-child(even){
+    background-color: rgba(255, 255, 255, .1);
+    
+}
+
+.header-table, th{
+    background-color: rgba(0, 0, 0, .6);
+    color: #fff;
+}
