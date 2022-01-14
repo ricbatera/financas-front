@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxo de Caixa - Java Gás</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container-geral">
+        <div class="menu-lateral">
+            <p>Escolha o Mês:</p>            
+            <div class="box-meses">
+                <span name="meses" value="0">JAN</span>
+                <span name="meses" value="1">FEV</span>
+                <span name="meses" value="2">MAR</span>
+                <span name="meses" value="3">ABR</span>
+                <span name="meses" value="4">MAI</span>
+                <span name="meses" value="5">JUN</span>
+                <span name="meses" value="6">JUL</span>
+                <span name="meses" value="7">AGO</span>
+                <span name="meses" value="8">SET</span>
+                <span name="meses" value="9">OUT</span>
+                <span name="meses" value="10">NOV</span>
+                <span name="meses" value="11">DEZ</span>
+
+            </div>
+            <div>
+                <button type="button" onclick="toggleModal()">Nova Entrada ou Saída</button>
+            </div>
+        </div>
+        <div class="painel-leitura">
+            <div class="dashboard">
+                <div class="entradas">
+                    <h4 class="titulo-secao">Entradas</h4>
+                    <div class="card-padrao">
+                        <h5>Total de Entradas Previsto</h5>
+                        <p>R$ 155.000,00</p>
+                    </div>
+                    <div class="card-padrao">
+                        <h5>Total de Entradas Recebido</h5>
+                        <p>R$ 95.289,00</p>
+                    </div>
+                    <div class="card-padrao">
+                        <h5>Saldo Atual</h5>
+                        <p>R$ 59.711,00</p>
+                    </div>
+                </div>
+                <div class="saidas">
+                    <h4 class="titulo-secao">Saídas</h4>
+                    <div class="card-padrao">
+                        <h5>Total de Saídas Previsto</h5>
+                        <p>R$ 155.000,00</p>
+                    </div>
+                    <div class="card-padrao">
+                        <h5>Total de Saídas Pago</h5>
+                        <p>R$ 95.289,00</p>
+                    </div>
+                    <div class="card-padrao">
+                        <h5>Custo Mensal</h5>
+                        <p>R$ 59.711,00</p>
+                    </div>
+                    <div class="card-padrao">
+                        <h5>Saldo Atual</h5>
+                        <p>R$ 59.711,00</p>
+                    </div>
+                    <div class="card-padrao">
+                        <h5>Custo Diário (Hoje)</h5>
+                        <p>R$ 695,38</p>
+                    </div>
+                </div>
+            </div>
+            <div class="listagem">
+                <!-- <table>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor Esperado</th>
+                        <th>Valor Efetivo</th>
+                        <th>Data Vencimento</th>
+                        <th>Data Pagamento</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr></table> -->
+                <table id="tabela">
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Valor Esperado</th>
+                        <th>Valor Efetivo</th>
+                        <th>Data Vencimento</th>
+                        <th>Data Pagamento</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                    <!-- <tr>
+                        <td>Aluguel da Base</td>
+                        <td>R$ 850,00</td>
+                        <td>R$ -</td>
+                        <td>20/01/2022</td>
+                        <td>-</td>
+                        <td>Aberto</td>
+                        <td>Pagar - Editar</td>
+                    </tr>
+                    <tr>
+                        <td>Aluguel da Base</td>
+                        <td>R$ 850,00</td>
+                        <td>R$ -</td>
+                        <td>20/01/2022</td>
+                        <td>-</td>
+                        <td>Aberto</td>
+                        <td>Pagar - Editar</td>
+                    </tr>
+                    <tr>
+                        <td>Aluguel da Base</td>
+                        <td>R$ 850,00</td>
+                        <td>R$ -</td>
+                        <td>20/01/2022</td>
+                        <td>-</td>
+                        <td>Aberto</td>
+                        <td>Pagar - Editar</td>
+                    </tr> -->
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class="container-modal esconde" id="container-modal-id">
+        <div class="container-form-modal">
+            <h2>Cadastro de nova Entrada ou Saída</h2>
+            <form class="form">
+                <label for="entradaSaida">Tipo</label>
+                <input type="radio" name="entradaSaida" id="saida" value="Saída">
+                <label for="saida">Saída</label>
+                <input type="radio" name="entradaSaida" id="entrada" value="Entrada" checked>
+                <label for="entrada">Entrada</label>
+                <label for="descricao">Descrição</label>
+                <input type="text" name="descricao" value="Aluguel da base">
+                <label for="valor">Valor</label>
+                <input type="text" name="valor" value="850.00">
+                <label for="dataVencimento">Data de Vencimento</label>
+                <input type="date" name="dataVencimento" value="2022-01-20">
+                <label for="">Gasto Fixo</label>
+                <input type="radio" name="recorrente" id="sim" value="Sim" checked>
+                <label for="sim">Sim</label>
+                <input type="radio" name="recorrente" id="nao" value="Não">
+                <label for="nao">Não</label>
+                <label for="parcelado">Parcelado</label>
+                <input type="radio" name="parcelado" id="sim2" value="Sim" checked>
+                <label for="sim2">Sim</label>
+                <input type="radio" name="parcelado" id="nao2" value="Não">
+                <label for="nao2">Não</label>
+                <label for="qtdeParcelas">Quantidade de parcelas</label>
+                <input type="number" name="qtdeParcelas" value="1">
+                <label>Marcar como custo diário</label>
+                <input type="radio" name="diario" id="sim-diario">
+                <label for="sim-diario">Sim</label>
+                <input type="radio" name="diario" id="nao-diario" checked>
+                <label for="nao-diario">Não</label>
+                
+                <label>Selecione uma categoria</label>
+                <input type="radio" name="gas" id="gas-item" value="Gás">
+                <label for="gas-item">Gás</label>
+
+                <input type="radio" name="gas" id="hidraulica-item" value="Hibraúlica">
+                <label for="hidraulica-item">Hidraúlica</label>
+
+                <input type="radio" name="gas" id="eletrica-item" value="Elétrica">
+                <label for="eletrica-item">Elétrica</label>
+                <label for="obs">Observações</label>
+                <textarea name="obs" id="" cols="30" rows="5"></textarea>
+                <button type="button" onclick="salvar()">Salvar</button>
+                <button type="button" onclick="toggleModal()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-pagar-container esconde" id="modal-pagar-id">
+        <div class="pagar-form-modal pagar-content">
+            <h3>Pagar ou Receber</h3>
+            <p>Detalhes da conta:</p>
+            <div class="form-pagar">
+                <label for="descricao">Descrição</label>
+                <input type="text" value="Prestação do Carro" disabled>
+                <label for="valorEsperado">Valor Esperado</label>
+                <input type="text" value="R$ 1.250,00" disabled>
+                <label for="dataVencimento">Data de Vencimento</label>
+                <input type="date" value="1982-09-17" disabled>
+                <br>
+                <label for="valorRecebido">Valor Recebido</label>
+                <input type="text" value="100">
+                <label for="dataVencimento">Data de Pagamento</label>
+                <input type="date" value="1982-09-17">
+                <button type="button" onclick="pagar(event)">Salvar</button>
+                <button type="button" onclick="chamaModalPagar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/main.js"></script>
+    <!-- <script src="./js/testes.js"></script> -->
+</body>
+</html>
