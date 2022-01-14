@@ -35,7 +35,8 @@
                     <hr class="dropdown-divider mt-4">
                 </li>
                 <div class="d-flex justify-content-center mt-4">
-                    <button type="button" class="btn btn-primary">Nova Entrada / Saída</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#modal-nova-entrada-saida">Nova Entrada / Saída</button>
                 </div>
             </div>
             <div class="col-10 bg-light px-4">
@@ -56,6 +57,132 @@
                         </thead>
                         <tbody id="tabela"></tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL NOVA ENTRADA SAÍDA -->
+    <div class="modal fade" tabindex="-1" id="modal-nova-entrada-saida" data-bs-backdrop="static"
+        data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo - Entrada ou Saída</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="entradaSaida" id="saida" value="Saída"
+                                checked>
+                            <label class="form-check-label" for="saida">Saída</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-3">
+                            <input class="form-check-input" type="radio" name="entradaSaida" id="entrada"
+                                value="Entrada">
+                            <label class="form-check-label" for="entrada">Entrada</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="descricao" value="Aluguel da base" class="form-control"
+                                id="descricao" placeholder="Conta de Luz">
+                            <label for="descricao">Descrição</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <label for="valor" class="form-label">Valor</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="text" name="valor" value="50,00" class="form-control" id="valor"
+                                        placeholder="100,00">
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <label for="data-vencimento" class="form-label">Data de Vencimento</label>
+                                <div class="input-group mb-3">
+                                    <input type="date" name="data-vencimento" value="2022-01-14" class="form-control"
+                                        id="data-vencimento" placeholder="selecione a data de vencimento">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="valor" class="form-label">Parcelado?</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="parcelado" id="sim-parcelado"
+                                        value="Sim">
+                                    <label class="form-check-label" for="sim-parcelado">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="parcelado" id="nao-parcelado"
+                                        value="Não" checked>
+                                    <label class="form-check-label" for="não-parcelado">Não</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="qtde-parcelas" class="form-label">Quantidade de parcelas</label>
+                                <div class="input-group mb-3">
+                                    <input type="number" name="qtde-parcelas" value="1" class="form-control"
+                                        id="qtde-parcelas" disabled>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label for="valor" class="form-label">Gasto Fixo?</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gasto-fixo" id="sim-gasto-fixo"
+                                        value="Sim">
+                                    <label class="form-check-label" for="sim-gasto-fixo">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gasto-fixo" id="nao-gasto-fixo"
+                                        value="Não" checked>
+                                    <label class="form-check-label" for="nao-gasto-fixo">Não</label>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label for="valor" class="form-label">Marcar como Custo Diário?</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="custo-diario"
+                                        id="sim-custo-diario" value="Sim" checked>
+                                    <label class="form-check-label" for="sim-custo-diario">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="custo-diario"
+                                        id="nao-custo-diario" value="Não">
+                                    <label class="form-check-label" for="nao-custo-diario">Não</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="obs" class="form-label">Observações</label>
+                            <textarea class="form-control" id="obs" rows="3"></textarea>
+
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label for="valor" class="form-label">Categoria do gasto</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="categoria" id="cat-geral"
+                                        value="Geral" checked>
+                                    <label class="form-check-label" for="cat-geral">Geral</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="categoria" id="cat-gas"
+                                        value="Gás">
+                                    <label class="form-check-label" for="cat-gas">Gás</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="categoria" id="cat-eletrica"
+                                        value="Elétrica">
+                                    <label class="form-check-label" for="cat-eletrica">Elétrica</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="categoria" id="cat-hidraulica"
+                                        value="Hidraúlica">
+                                    <label class="form-check-label" for="cat-hidraulica">Hidráulica</label>
+                                </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
         </div>
