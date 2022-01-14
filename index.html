@@ -1,12 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fluxo de Caixa - Java Gás</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style-bootstrap.css">
 </head>
+
 <body>
-    
+    <div class="container-fluid h-100">
+        <div class="row d-flex h-100">
+            <div class="col-2 bg-info">
+                <h3 class="">Filtros</h3>
+                <p class="">Escolha o Mês:</p>
+                <div class="box-meses bg-light shadow ">
+                    <span name="meses" value="0">JAN</span>
+                    <span name="meses" value="1">FEV</span>
+                    <span name="meses" value="2">MAR</span>
+                    <span name="meses" value="3">ABR</span>
+                    <span name="meses" value="4">MAI</span>
+                    <span name="meses" value="5">JUN</span>
+                    <span name="meses" value="6">JUL</span>
+                    <span name="meses" value="7">AGO</span>
+                    <span name="meses" value="8">SET</span>
+                    <span name="meses" value="9">OUT</span>
+                    <span name="meses" value="10">NOV</span>
+                    <span name="meses" value="11">DEZ</span>
+                </div>
+                <li>
+                    <hr class="dropdown-divider mt-4">
+                </li>
+                <div class="d-flex justify-content-center mt-4">
+                    <button type="button" class="btn btn-primary">Nova Entrada / Saída</button>
+                </div>
+            </div>
+            <div class="col-10 bg-light px-4">
+                <h2 class="text-secondary">Fluxo de caixa referente ao mês de <span>Automatizar</span></h2>
+                <div class="row">
+                    <table class="table table-bordered bg-white table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Descrição</th>
+                                <th scope="col">Valor Esperado</th>
+                                <th scope="col">Valor Efetivo</th>
+                                <th scope="col">Data Vencimento</th>
+                                <th scope="col">Data Pagamento</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="./js/main.js"></script>
 </body>
+
 </html>

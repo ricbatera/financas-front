@@ -54,7 +54,7 @@ function listarParcelasMensal(){
 
 function inserirDadosNaTela(dados){
     limparTabela();
-
+/*
     const tr = document.createElement('tr');
     const th = document.createElement('td');
     const th2 = document.createElement('td');
@@ -91,7 +91,8 @@ function inserirDadosNaTela(dados){
     tr.appendChild(th5)
     tr.appendChild(th6)
     tr.appendChild(th7)
-    tabela.appendChild(tr)
+    */
+    //tabela.appendChild(tr)
 
 
     dados.forEach(e=>{
@@ -215,14 +216,14 @@ const meses = document.getElementsByName('meses');
 function selecionarMes(mesAtual = 12) {
     for (let mes of meses) {
         if(mes.attributes.value.nodeValue == mesAtual){
-            mes.classList = 'selecionado'
+            mes.classList = 'bg-warning text-white rounded-3'
         }
         mes.addEventListener('click', ev => {
             // ev.preventDefault()
             for (let i of meses) {
-                i.classList.remove('selecionado');
+                i.classList.remove('bg-warning', 'text-white');
             }
-            mes.classList = 'selecionado';
+            mes.classList = 'bg-warning text-white rounded-3';
             dataAtual(mes.attributes.value.nodeValue)
             listarParcelasMensal();
         });

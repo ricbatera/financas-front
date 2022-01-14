@@ -1,0 +1,29 @@
+html, body{
+    height: 100vh;
+}
+li{
+   list-style: none; 
+}
+
+/* calendário */
+.box-meses{
+    display: flex;
+    height: 200px;
+    width: 230px;
+    flex-wrap: wrap;
+    font-size: 1.2em;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.box-meses span{
+    padding: 10px;
+    cursor: pointer;
+}
+
+.selecionado{
+    background-color: rgba(0, 0, 0, .4);
+    color: #fff;
+    border-radius: 10px;
+}
