@@ -63,7 +63,6 @@ function salvar(){
     // xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
     xhr.onreadystatechange = function () {//Call a function when the state changes.
         if (xhr.readyState == 4 && xhr.status == 200) {
-            alert(xhr.responseText);
             listarParcelasMensal();
             modalNovaEntradaSaida.toggle();
             const toast = new bootstrap.Toast(toastSucesso);
@@ -194,10 +193,23 @@ function inserirDadosNaTela(dados){
 
         td8.textContent = e.entradaSaida.tipoEntradaSaida;
         td.textContent = e.entradaSaida.descricao;
-        td2.textContent = e.valorEsperado;
-        td3.textContent = e.valorEfetivo;
-        td4.textContent = e.dataVencimento;
-        td5.textContent = e.dataPagamento;
+        td2.textContent = e.valorEsperado.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+        let valorFormatado
+        if(e.valorEfetivo){
+            valorFormatado = e.valorEfetivo.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+        }else{
+            valorFormatado = "R$ -"
+        }
+        td3.textContent = valorFormatado;
+        const dataFormatada = new Date(e.dataVencimento)
+        td4.textContent = dataFormatada.toLocaleDateString();
+        let dataFormatada2 = new Date(e.dataPagamento)
+        if(e.dataPagamento){
+            dataFormatada2 = dataFormatada2.toLocaleDateString();
+        }else{
+            dataFormatada2 = "";
+        }
+        td5.textContent = dataFormatada2;
         td6.textContent = e.status;
         td7.insertAdjacentElement('beforeend', pagar)
         td7.insertAdjacentText('beforeend', ' - ')
