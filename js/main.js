@@ -1,6 +1,9 @@
 const form = document.getElementsByClassName('form');
 const filtros = document.getElementsByClassName('filtros');
 const tabela = document.getElementById('tabela');
+const optionEntradaSaida = document.getElementsByName('entradaSaida');
+const opcaoParcelado = document.getElementsByName('parcelado');
+const inputparcela = document.getElementById('qtde-parcelas');
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
@@ -9,7 +12,68 @@ let dataFinal = '2022-02-28';
 let resultado;
 let idPagamento;
 
-function salvar() {
+//habilita ou desabilita quantidade de parcelas
+for(let i of opcaoParcelado){
+    i.addEventListener('change', ()=>{
+        if(i.id == 'sim-parcelado'){
+            inputparcela.removeAttribute('disabled')
+        }else{
+            inputparcela.setAttribute('disabled', 'true')
+            inputparcela.value = 1;            
+        }
+    })
+}
+
+
+// mostra esconde opções de entra ou saida no cadastro
+for(let p of optionEntradaSaida){
+    p.addEventListener('change', ()=>{
+        document.getElementById('saida-only').classList.toggle('saida-only')
+    })
+}
+
+function salvar(){
+    console.log(form)
+    const marcadoPago = document.getElementById('marcar-pago');
+    const categorias = document.getElementsByName('categoria');
+    let categoria = "Ricardo"
+    for(let cat of categorias){
+        if(cat.checked){
+            categoria = cat.value
+        }
+    }
+    payload = {
+        descricao: form[0][2].value,
+        tipoEntradaSaida: form[0][0].checked ? "Saída" : "Entrada",
+        dataVencimento: form[0][4].value,
+        valor: form[0][3].value.replace(/(\d{0,3})(\.?)(\d+)(\,)(\d{2})/, "$1$3.$5"),
+        qtdeParcelas: form[0][8].value,
+        custoDiario: form[0][11].checked,
+        observacoes: form[0][5].value,
+        recorrente: form[0][6].checked,
+        pago: marcadoPago.checked,
+        categoria: categoria
+    }
+    xhr.open('POST', "http://localhost:8080/entradasSaidas", true);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    // xhr.setRequestHeader('Access-Control-Allow-Origin', 'xhr://localhost:5500');
+    // xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+    xhr.onreadystatechange = function () {//Call a function when the state changes.
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            alert(xhr.responseText);
+            listarParcelasMensal();
+            toggleModal();
+        }
+    }
+    xhr.send(JSON.stringify(payload));
+    console.log(payload)
+}
+
+function converteNumero(numero){
+   const  newvalue= numero.replace()
+}
+
+function salvar2() {
     payload = {
         descricao: form[0][2].value,
         tipoEntradaSaida: form[0][0].checked ? "Saída" : "Entrada",
