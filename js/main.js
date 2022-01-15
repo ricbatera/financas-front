@@ -1,3 +1,4 @@
+// ELEMENTOS DA TELA -
 const form = document.getElementsByClassName('form');
 const filtros = document.getElementsByClassName('filtros');
 const tabela = document.getElementById('tabela');
@@ -9,6 +10,7 @@ const toastSucesso = document.getElementById('toast-sucesso-salvar');
 const modalNovaEntradaSaida = new bootstrap.Modal(document.getElementById('modal-nova-entrada-saida'));
 const modalPagar = new bootstrap.Modal(document.getElementById('modal-pagar'));
 const formPagar = document.getElementsByClassName('form-pagar');
+const meses = document.getElementsByName('meses');
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
@@ -16,10 +18,60 @@ let dataInicial = '2022-02-01';
 let dataFinal = '2022-02-28';
 let resultado;
 let idParcelaAtual = 0;
+const hoje = new Date();
 
 //URL's heroku x local
-const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
-//const urlP = 'http://localhost:8080/' // local;
+//const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
+const urlP = 'http://localhost:8080/' // local;
+
+
+//START DA APLICAÇÃO - FUNÇÕES ENCADEADAS QUE DEVEM SER EXECUTADAS ASSIM QUE ESSE SCRIPT FOR CHAMADO.
+dataAtual();
+
+
+//Verifica que dia é hoje, monta a data inical e final para buscar no banco entradas e saidas de acordo com a data inicial e final
+// Pela regra sempre será um intervalo de 01 mÊs, na primeira chamada o mês atual, mas essa função é chamada por outros métodos que enviam um mÊs como refencia.
+// Se a chamada dessa função vem sem argumentos -1 é setado como padrão.
+function dataAtual(mesInformado = -1){
+
+    if(mesInformado == -1){
+        hoje.setDate(1);        
+        dataInicial =`${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() < 10 ? '0'+hoje.getDate() : hoje.getDate()}`
+        hoje.setMonth(hoje.getMonth()+1)
+        hoje.setDate(0);
+        dataFinal = `${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() <10 ? '0'+hoje.getDate() : hoje.getDate()}`
+        selecionarMes(hoje.getMonth())
+    }else{
+        hoje.setDate(1);
+        hoje.setMonth(mesInformado)
+        dataInicial =`${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() < 10 ? '0'+hoje.getDate() : hoje.getDate()}`
+        hoje.setMonth(hoje.getMonth()+1)
+        hoje.setDate(0);
+        console.log(hoje)
+        dataFinal = `${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() <10 ? '0'+hoje.getDate() : hoje.getDate()}`
+                
+    }
+}
+
+
+//Essa função seleciona o mês visualmente na tela de acordo com a data atual, ou o evento de click do usuário no card de seleção de meses.
+function selecionarMes(mesAtual = 12) {
+    for (let mes of meses) {
+        if(mes.attributes.value.nodeValue == mesAtual){
+            mes.classList = 'bg-warning text-white rounded-3'
+        }
+        mes.addEventListener('click', ev => {
+            // ev.preventDefault()
+            for (let i of meses) {
+                i.classList.remove('bg-warning', 'text-white');
+            }
+            mes.classList = 'bg-warning text-white rounded-3';
+            dataAtual(mes.attributes.value.nodeValue)
+            listarParcelasMensal();
+        });
+    }
+    listarParcelasMensal();
+}
 
 
 //habilita ou desabilita quantidade de parcelas
@@ -312,48 +364,11 @@ function criarElemento(nomeElemento){
     return document.createElement(nomeElemento);
 }
 
-const meses = document.getElementsByName('meses');
+
 //selecionarMes();
-function selecionarMes(mesAtual = 12) {
-    for (let mes of meses) {
-        if(mes.attributes.value.nodeValue == mesAtual){
-            mes.classList = 'bg-warning text-white rounded-3'
-        }
-        mes.addEventListener('click', ev => {
-            // ev.preventDefault()
-            for (let i of meses) {
-                i.classList.remove('bg-warning', 'text-white');
-            }
-            mes.classList = 'bg-warning text-white rounded-3';
-            dataAtual(mes.attributes.value.nodeValue)
-            listarParcelasMensal();
-        });
-    }
-    listarParcelasMensal();
-}
 
-const hoje = new Date();
-function dataAtual(mesInformado = -1){
 
-    if(mesInformado == -1){
-        hoje.setDate(1);        
-        dataInicial =`${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() < 10 ? '0'+hoje.getDate() : hoje.getDate()}`
-        hoje.setMonth(hoje.getMonth()+1)
-        hoje.setDate(0);
-        dataFinal = `${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() <10 ? '0'+hoje.getDate() : hoje.getDate()}`
-        selecionarMes(hoje.getMonth())
-    }else{
-        hoje.setDate(1);
-        hoje.setMonth(mesInformado)
-        dataInicial =`${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() < 10 ? '0'+hoje.getDate() : hoje.getDate()}`
-        hoje.setMonth(hoje.getMonth()+1)
-        hoje.setDate(0);
-        console.log(hoje)
-        dataFinal = `${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() <10 ? '0'+hoje.getDate() : hoje.getDate()}`
-                
-    }
-}
-dataAtual();
+
 
 
 // controles dos modais
