@@ -4,6 +4,9 @@ const tabela = document.getElementById('tabela');
 const optionEntradaSaida = document.getElementsByName('entradaSaida');
 const opcaoParcelado = document.getElementsByName('parcelado');
 const inputparcela = document.getElementById('qtde-parcelas');
+const toastErro = document.getElementById('toast-erro-salvar');
+const toastSucesso = document.getElementById('toast-sucesso-salvar');
+const modalNovaEntradaSaida = new bootstrap.Modal(document.getElementById('modal-nova-entrada-saida'));
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
@@ -19,7 +22,7 @@ for(let i of opcaoParcelado){
             inputparcela.removeAttribute('disabled')
         }else{
             inputparcela.setAttribute('disabled', 'true')
-            inputparcela.value = 1;            
+            inputparcela.value = 1;       
         }
     })
 }
@@ -62,7 +65,14 @@ function salvar(){
         if (xhr.readyState == 4 && xhr.status == 200) {
             alert(xhr.responseText);
             listarParcelasMensal();
-            toggleModal();
+            modalNovaEntradaSaida.toggle();
+            const toast = new bootstrap.Toast(toastSucesso);
+            toast.show();
+            //toggleModal();
+        }else{
+            const toast = new bootstrap.Toast(toastErro);
+            modalNovaEntradaSaida.toggle();
+            toast.show();
         }
     }
     xhr.send(JSON.stringify(payload));
