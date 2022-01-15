@@ -1,5 +1,3 @@
-let  valor = '325.283,45';
+const hoje = new Date('2022-01-15T00:00');
 
-let result = valor.replace(/(\d{0,3})(\.?)(\d+)(\,)(\d{2})/, "$1$3.$5");
-
-console.log(result)
+console.log(hoje.toLocaleDateString())

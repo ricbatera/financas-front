@@ -7,13 +7,15 @@ const inputparcela = document.getElementById('qtde-parcelas');
 const toastErro = document.getElementById('toast-erro-salvar');
 const toastSucesso = document.getElementById('toast-sucesso-salvar');
 const modalNovaEntradaSaida = new bootstrap.Modal(document.getElementById('modal-nova-entrada-saida'));
+const modalPagar = new bootstrap.Modal(document.getElementById('modal-pagar'));
+const formPagar = document.getElementsByClassName('form-pagar');
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
 let dataInicial = '2022-02-01';
 let dataFinal = '2022-02-28';
 let resultado;
-let idPagamento;
+let idParcelaAtual = 0;
 
 //habilita ou desabilita quantidade de parcelas
 for(let i of opcaoParcelado){
@@ -82,29 +84,6 @@ function converteNumero(numero){
    const  newvalue= numero.replace()
 }
 
-function salvar2() {
-    payload = {
-        descricao: form[0][2].value,
-        tipoEntradaSaida: form[0][0].checked ? "Saída" : "Entrada",
-        dataVencimento: form[0][4].value,
-        valor: form[0][3].value,
-        qtdeParcelas: form[0][9].value,
-        recorrente: form[0][5].checked
-    }
-    xhr.open('POST', "http://localhost:8080/entradasSaidas", true);
-    xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    // xhr.setRequestHeader('Access-Control-Allow-Origin', 'xhr://localhost:5500');
-    // xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
-    xhr.onreadystatechange = function () {//Call a function when the state changes.
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            alert(xhr.responseText);
-            listarParcelasMensal();
-            toggleModal();
-        }
-    }
-    xhr.send(JSON.stringify(payload));
-    console.log(payload)
-}
 
 
 function listarParcelasMensal(){    
@@ -201,9 +180,9 @@ function inserirDadosNaTela(dados){
             valorFormatado = "R$ -"
         }
         td3.textContent = valorFormatado;
-        const dataFormatada = new Date(e.dataVencimento)
+        const dataFormatada = new Date(e.dataVencimento +'T00:00')
         td4.textContent = dataFormatada.toLocaleDateString();
-        let dataFormatada2 = new Date(e.dataPagamento)
+        let dataFormatada2 = new Date(e.dataPagamento +'T00:00')
         if(e.dataPagamento){
             dataFormatada2 = dataFormatada2.toLocaleDateString();
         }else{
@@ -241,7 +220,6 @@ function linksPagarEditar(){
         pagarEditar[i].addEventListener('click', e=>{
             e.preventDefault()
             if(e.path[0].outerText == 'Pagar'){
-                // pagar(pagarEditar[i].id)
                 chamaModalPagar(pagarEditar[i].id)
             }else{
                 editar(pagarEditar[i].id)
@@ -250,45 +228,77 @@ function linksPagarEditar(){
         })
     }
 }
+//modalPagar.toggle(); // apagar depois
 
 function chamaModalPagar(id){
-    document.getElementById('modal-pagar-id').classList.toggle('esconde')
+    modalPagar.toggle();
+    //document.getElementById('modal-pagar-id').classList.toggle('esconde')
     if(id){
-        idPagamento = id;
+        idParcelaAtual = id;
         resultado.forEach(e=>{
             if(e.id == id){
-              const formPagar = document.getElementsByClassName('form-pagar');
-              formPagar[0].children[1].value = resultado[id].entradaSaida.descricao
-              formPagar[0].children[3].value = resultado[id].valorEsperado
-              formPagar[0].children[5].value = resultado[id].dataVencimento
+              formPagar[0][0].value = e.entradaSaida.descricao;
+              formPagar[0][1].value = e.valorEsperado.toLocaleString('pt-br', {minimumFractionDigits: 2});
+              formPagar[0][2].value = e.dataVencimento;
+              formPagar[0][3].value = e.valorEsperado.toLocaleString('pt-br', {minimumFractionDigits: 2});
+              formPagar[0][4].value = e.dataVencimento;
             }
-        })
+        });        
     }else{
         console.log('não tem id')
     }
+    
 
 }
 
 function pagar(){
-    const formPagar = document.getElementsByClassName('form-pagar');
-    console.log(formPagar)
-    console.log(resultado[idPagamento])
-    resultado[idPagamento].valorEfetivo = formPagar[0].children[8].value
-    resultado[idPagamento].dataPagamento = formPagar[0].children[10].value
-
-    console.log(resultado[idPagamento])
-    /*
-    let url = `http://localhost:8080/entradasSaidas/pagarParcela/${id}`
-    xhr.open("GET", url, true);
+    payload = {
+        dataPagamento: formPagar[0][4].value,
+        valorEfetivo: formPagar[0][3].value.replace(/(\d{0,3})(\.?)(\d+)(\,)(\d{2})/, "$1$3.$5")
+    }
+    
+    let url = `http://localhost:8080/entradasSaidas/pagarParcela/${idParcelaAtual}`
+    xhr.open('POST', url, true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    xhr.onreadystatechange = function () { // Chama a função quando o estado mudar.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+    // xhr.setRequestHeader('Access-Control-Allow-Origin', 'xhr://localhost:5500');
+    // xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+    xhr.onreadystatechange = function () {//Call a function when the state changes.
+        if (xhr.readyState == 4 && xhr.status == 200) {
             listarParcelasMensal();
-            
+            modalPagar.toggle()
+            const toast = new bootstrap.Toast(toastSucesso);
+            toast.show();
+        }else{
+            const toast = new bootstrap.Toast(toastErro);
+            modalPagar.toggle()
+            toast.show();
         }
     }
-    xhr.send();
-    */
+    xhr.send(JSON.stringify(payload));
+    console.log(payload)
+
+
+
+
+
+
+    
+    // let url = `http://localhost:8080/entradasSaidas/pagarParcela/${idParcelaAtual}`
+    // xhr.open("POST", url, true);
+    // xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    // xhr.onreadystatechange = function () { // Chama a função quando o estado mudar.
+    //     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+    //         listarParcelasMensal();
+    //         const toast = new bootstrap.Toast(toastSucesso);
+    //         toast.show();            
+    //     }else{
+    //         const toast = new bootstrap.Toast(toastErro);
+    //         modalNovaEntradaSaida.toggle();
+    //         toast.show();
+    //     }
+    // }
+    // xhr.send(JSON.stringify(payload));
+    
 }
 function editar(id ){
     alert("editando conta com id " + id)

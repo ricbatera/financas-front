@@ -209,6 +209,65 @@
         </div>
     </div>
 
+    <!-- MODAL - PAGAR / RECEBER -->
+    <div class="modal fade" tabindex="-1" id="modal-pagar" data-bs-backdrop="static"
+        data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pagar / Receber</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-pagar" class="form-pagar">
+                        <div class="row">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="descricao" class="form-control"
+                                    id="descricao-form-pagar" disabled>
+                                <label for="descricao">Descrição</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <label for="valor" class="form-label">Valor Esperado</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="text" name="valor-esperado-oagar" class="form-control" id="valor-esperado-pagamento" disabled>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <label for="data-vencimento" class="form-label">Data de Vencimento</label>
+                                <div class="input-group mb-3">
+                                    <input type="date" name="data-vencimento" class="form-control" id="data-vencimento-pagar" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <label for="valor" class="form-label">Valor Recebido</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="text" name="valor-recebido-pagar" class="form-control" id="valor-recebido-pagamento"
+                                    onkeypress="$(this).mask('#.##0,00', {reverse: true});">
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <label for="data-vencimento" class="form-label">Data de Pagamento</label>
+                                <div class="input-group mb-3">
+                                    <input type="date" name="data-vencimento" class="form-control" id="data-pagamento-pagar">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">                    
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="pagar()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TOASTS -->
     <!-- TOAST - ERRO AO SALVAR NOVA CONTA -->
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 100">
@@ -217,7 +276,7 @@
                 <div class="toast-body">
                     Erro ao salvar. Tente novamente mais tarde
                 </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <!-- <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button> -->
             </div>
         </div>
     </div>
@@ -228,7 +287,7 @@
                 <div class="toast-body">
                     Salvo com sucesso!
                 </div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <!-- <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button> -->
             </div>
         </div>
     </div>
