@@ -17,6 +17,11 @@ let dataFinal = '2022-02-28';
 let resultado;
 let idParcelaAtual = 0;
 
+//URL's heroku x local
+const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
+//const urlP = 'http://localhost:8080/' // local;
+
+
 //habilita ou desabilita quantidade de parcelas
 for(let i of opcaoParcelado){
     i.addEventListener('change', ()=>{
@@ -59,7 +64,7 @@ function salvar(){
         pago: marcadoPago.checked,
         categoria: categoria
     }
-    xhr.open('POST', "http://localhost:8080/entradasSaidas", true);
+    xhr.open('POST', `${urlP}entradasSaidas`, true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
     // xhr.setRequestHeader('Access-Control-Allow-Origin', 'xhr://localhost:5500');
     // xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
@@ -87,7 +92,7 @@ function converteNumero(numero){
 
 
 function listarParcelasMensal(){    
-    let url = `http://localhost:8080/entradasSaidas/listaParcelasMensal?fim=${dataFinal}&inicial=${dataInicial}`
+    let url =`${urlP}entradasSaidas/listaParcelasMensal?fim=${dataFinal}&inicial=${dataInicial}`
     xhr.open("GET", url, true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
     xhr.onreadystatechange = function () { // Chama a função quando o estado mudar.
@@ -257,7 +262,7 @@ function pagar(){
         valorEfetivo: formPagar[0][3].value.replace(/(\d{0,3})(\.?)(\d+)(\,)(\d{2})/, "$1$3.$5")
     }
     
-    let url = `http://localhost:8080/entradasSaidas/pagarParcela/${idParcelaAtual}`
+    let url = `${urlP}entradasSaidas/pagarParcela/${idParcelaAtual}`
     xhr.open('POST', url, true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
     // xhr.setRequestHeader('Access-Control-Allow-Origin', 'xhr://localhost:5500');
