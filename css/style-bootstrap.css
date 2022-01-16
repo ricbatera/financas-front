@@ -31,3 +31,30 @@ li{
 .saida-only{
     display: none;
 }
+
+.modal-loading{
+    height: 100vh;
+    width: 100vw;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: rgb(255, 30, 30);
+}
+
+.conteudo-loading{
+    position: relative;
+}
+.conteudo-loading h3{
+    position: absolute;
+    width: 100%;
+    right: auto;
+    left: auto;
+    bottom: 250px;
+}
+
+.oculta{
+    display: none;
+}

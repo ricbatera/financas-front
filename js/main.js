@@ -11,6 +11,7 @@ const modalNovaEntradaSaida = new bootstrap.Modal(document.getElementById('modal
 const modalPagar = new bootstrap.Modal(document.getElementById('modal-pagar'));
 const formPagar = document.getElementsByClassName('form-pagar');
 const meses = document.getElementsByName('meses');
+const modalLoading = document.getElementById('modal-loading');
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
@@ -33,7 +34,7 @@ dataAtual();
 // Pela regra sempre será um intervalo de 01 mÊs, na primeira chamada o mês atual, mas essa função é chamada por outros métodos que enviam um mÊs como refencia.
 // Se a chamada dessa função vem sem argumentos -1 é setado como padrão.
 function dataAtual(mesInformado = -1){
-
+    modalLoading.classList.toggle('oculta');
     if(mesInformado == -1){
         hoje.setDate(1);        
         dataInicial =`${hoje.getFullYear()}-${(hoje.getMonth()+1) < 10 ? '0'+(hoje.getMonth()+1) : hoje.getMonth()+1}-${hoje.getDate() < 10 ? '0'+hoje.getDate() : hoje.getDate()}`
@@ -95,6 +96,7 @@ for(let p of optionEntradaSaida){
 }
 
 function salvar(){
+    modalLoading.classList.toggle('oculta');
     console.log(form)
     const marcadoPago = document.getElementById('marcar-pago');
     const categorias = document.getElementsByName('categoria');
@@ -153,10 +155,12 @@ function listarParcelasMensal(){
             console.log(resultado);
             setTimeout(()=>{
                 inserirDadosNaTela(resultado)
+                modalLoading.classList.toggle('oculta');
             },500)
         }
     }
     xhr.send();
+    //modalLoading.classList.remove('oculta');
 }
 
 
@@ -309,6 +313,7 @@ function chamaModalPagar(id){
 }
 
 function pagar(){
+    modalLoading.classList.toggle('oculta');
     payload = {
         dataPagamento: formPagar[0][4].value,
         valorEfetivo: formPagar[0][3].value.replace(/(\d{0,3})(\.?)(\d+)(\,)(\d{2})/, "$1$3.$5")
