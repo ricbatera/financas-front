@@ -42,6 +42,95 @@
             <div class="col-10 bg-light px-4">
                 <h2 class="text-secondary">Fluxo de caixa referente ao mês de <span>Automatizar*</span></h2>
                 <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-2 bg-success bg-opacity-75 d-flex justify-content-center">
+                                    <img src="./img/savings_white_48dp.svg" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="card-body">
+                                        <!--Container geral dos cartões de entradas -->
+                                        <h5 class="card-title">Entradas</h5>
+                                        <!-- container dos cartões -->
+                                        <div class="d-flex justify-content-evenly gap-2 flex-wrap text-center">
+                                            <!-- cartõeszinhos com as informações -->
+                                            <div class="card text-dark bg-light mb-3" style="width: 10rem;">
+                                                <div class="card-header">Total Recebido</div>
+                                                <div class="card-body">
+                                                    <p class="card-text" id="card-total-recebido">R$ 50.236,28</p>
+                                                </div>
+                                            </div>
+                                            <!-- cartõeszinhos com as informações -->
+                                            <div class="card text-dark bg-light mb-3" style="width: 10rem;">
+                                                <div class="card-header">Total a Receber</div>
+                                                <div class="card-body">
+                                                    <p class="card-text" id="card-total-receber">R$ 50.236,28</p>
+                                                </div>
+                                            </div>
+                                            <!-- cartõeszinhos com as informações -->
+                                            <div class="card text-dark bg-light mb-3" style="width: 10rem;">
+                                                <div class="card-header bg-success text-white">Total de Entradas</div>
+                                                <div class="card-body">
+                                                    <p class="card-text" id="card-total-entradas">R$ 158.236,28</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-2 bg-warning d-flex justify-content-center bg-opacity-75">
+                                    <img src="./img/monetization_on_white_48dp.svg" class="img-fluid rounded-start"
+                                        alt="...">
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Saídas</h5>
+                                        <!-- container dos cartões -->
+                                        <div class="d-flex justify-content-evenly gap-2 flex-wrap text-center">
+                                            <!-- cartõeszinhos com as informações -->
+                                            <div class="card text-dark bg-light mb-3" style="width: 10rem;">
+                                                <div class="card-header">Total Pago</div>
+                                                <div class="card-body">
+                                                    <p class="card-text" id="card-total-pago">R$ 50.236,28</p>
+                                                </div>
+                                            </div>
+                                            <!-- cartõeszinhos com as informações -->
+                                            <div class="card text-dark bg-light mb-3" style="width: 10rem;">
+                                                <div class="card-header">Total Aberto</div>
+                                                <div class="card-body">
+                                                    <p class="card-text" id="card-total-aberto">R$ 50.236,28</p>
+                                                </div>
+                                            </div>                                            
+                                            <!-- cartõeszinhos com as informações -->
+                                            <div class="card text-dark bg-light mb-3" style="width: 10rem;">
+                                                <div class="card-header bg-warning text-white">Total de Saídas</div>
+                                                <div class="card-body">
+                                                    <p class="card-text" id="card-total-saidas">R$ 158.236,28</p>
+                                                </div>
+                                            </div>
+                                            <!-- cartõeszinhos com as informações -->
+                                            <div class="card text-dark bg-light mb-3" style="width: 10rem;">
+                                                <div class="card-header bg-danger text-white">Custo Diário</div>
+                                                <div class="card-body">
+                                                    <p class="card-text" id="card-custo-diario">R$ 50.236,28</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <table class="table table-bordered bg-white table-striped">
                         <thead>
                             <tr>
@@ -210,8 +299,7 @@
     </div>
 
     <!-- MODAL - PAGAR / RECEBER -->
-    <div class="modal fade" tabindex="-1" id="modal-pagar" data-bs-backdrop="static"
-        data-bs-keyboard="false">
+    <div class="modal fade" tabindex="-1" id="modal-pagar" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -222,8 +310,8 @@
                     <form id="form-pagar" class="form-pagar">
                         <div class="row">
                             <div class="form-floating mb-3">
-                                <input type="text" name="descricao" class="form-control"
-                                    id="descricao-form-pagar" disabled>
+                                <input type="text" name="descricao" class="form-control" id="descricao-form-pagar"
+                                    disabled>
                                 <label for="descricao">Descrição</label>
                             </div>
                         </div>
@@ -232,13 +320,15 @@
                                 <label for="valor" class="form-label">Valor Esperado</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">R$</span>
-                                    <input type="text" name="valor-esperado-oagar" class="form-control" id="valor-esperado-pagamento" disabled>
+                                    <input type="text" name="valor-esperado-oagar" class="form-control"
+                                        id="valor-esperado-pagamento" disabled>
                                 </div>
                             </div>
                             <div class="col-7">
                                 <label for="data-vencimento" class="form-label">Data de Vencimento</label>
                                 <div class="input-group mb-3">
-                                    <input type="date" name="data-vencimento" class="form-control" id="data-vencimento-pagar" disabled>
+                                    <input type="date" name="data-vencimento" class="form-control"
+                                        id="data-vencimento-pagar" disabled>
                                 </div>
                             </div>
                         </div>
@@ -247,20 +337,22 @@
                                 <label for="valor" class="form-label">Valor Recebido</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">R$</span>
-                                    <input type="text" name="valor-recebido-pagar" class="form-control" id="valor-recebido-pagamento"
-                                    onkeypress="$(this).mask('#.##0,00', {reverse: true});">
+                                    <input type="text" name="valor-recebido-pagar" class="form-control"
+                                        id="valor-recebido-pagamento"
+                                        onkeypress="$(this).mask('#.##0,00', {reverse: true});">
                                 </div>
                             </div>
                             <div class="col-7">
                                 <label for="data-vencimento" class="form-label">Data de Pagamento</label>
                                 <div class="input-group mb-3">
-                                    <input type="date" name="data-vencimento" class="form-control" id="data-pagamento-pagar">
+                                    <input type="date" name="data-vencimento" class="form-control"
+                                        id="data-pagamento-pagar">
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">                    
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     <button type="button" class="btn btn-primary" onclick="pagar()">Salvar</button>
                 </div>
@@ -271,7 +363,8 @@
     <!-- TOASTS -->
     <!-- TOAST - ERRO AO SALVAR NOVA CONTA -->
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 100">
-        <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="toast-erro-salvar">
+        <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true"
+            id="toast-erro-salvar">
             <div class="d-flex  bg-danger text-white">
                 <div class="toast-body">
                     Erro ao salvar. Tente novamente mais tarde
@@ -282,7 +375,8 @@
     </div>
     <!-- TOAST - SALVO COM SUCESSO -->
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 100">
-        <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="toast-sucesso-salvar">
+        <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true"
+            id="toast-sucesso-salvar">
             <div class="d-flex  bg-success text-white">
                 <div class="toast-body">
                     Salvo com sucesso!

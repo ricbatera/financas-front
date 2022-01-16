@@ -12,6 +12,14 @@ const modalPagar = new bootstrap.Modal(document.getElementById('modal-pagar'));
 const formPagar = document.getElementsByClassName('form-pagar');
 const meses = document.getElementsByName('meses');
 const modalLoading = document.getElementById('modal-loading');
+// id's dos inidcadores na tela
+const cardTotalRecebido = document.getElementById('card-total-recebido');
+const cardTotalReceber = document.getElementById('card-total-receber');
+const cardTotalEntradas = document.getElementById('card-total-entradas');
+const cardTotalPago = document.getElementById('card-total-pago');
+const cardTotalAberto = document.getElementById('card-total-aberto');
+const cardTotalSaidas = document.getElementById('card-total-saidas');
+const cardCustoDiario = document.getElementById('card-custo-diario');
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
@@ -20,6 +28,7 @@ let dataFinal = '2022-02-28';
 let resultado;
 let idParcelaAtual = 0;
 const hoje = new Date();
+let indicadores;
 
 //URL's heroku x local
 const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
@@ -69,9 +78,15 @@ function selecionarMes(mesAtual = 12) {
             mes.classList = 'bg-warning text-white rounded-3';
             dataAtual(mes.attributes.value.nodeValue)
             listarParcelasMensal();
+            setTimeout(()=>{
+                carregaIndicadores();
+            },600)
         });
     }
     listarParcelasMensal();
+    setTimeout(()=>{
+        carregaIndicadores();
+    },600)
 }
 
 
@@ -96,7 +111,7 @@ for(let p of optionEntradaSaida){
 }
 
 function salvar(){
-    modalLoading.classList.toggle('oculta');
+    
     console.log(form)
     const marcadoPago = document.getElementById('marcar-pago');
     const categorias = document.getElementsByName('categoria');
@@ -120,11 +135,13 @@ function salvar(){
     }
     xhr.open('POST', `${urlP}entradasSaidas`, true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    // xhr.setRequestHeader('Access-Control-Allow-Origin', 'xhr://localhost:5500');
-    // xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
     xhr.onreadystatechange = function () {//Call a function when the state changes.
         if (xhr.readyState == 4 && xhr.status == 200) {
             listarParcelasMensal();
+            setTimeout(()=>{
+                carregaIndicadores();
+            })
+            //modalLoading.classList.toggle('oculta');
             modalNovaEntradaSaida.toggle();
             const toast = new bootstrap.Toast(toastSucesso);
             toast.show();
@@ -167,46 +184,6 @@ function listarParcelasMensal(){
 
 function inserirDadosNaTela(dados){
     limparTabela();
-/*
-    const tr = document.createElement('tr');
-    const th = document.createElement('td');
-    const th2 = document.createElement('td');
-    const th3 = document.createElement('td');
-    const th4 = document.createElement('td');
-    const th5 = document.createElement('td');
-    const th6 = document.createElement('td');
-    const th7 = document.createElement('td');
-    const th8 = document.createElement('td');
-
-    th.classList ='header-table';
-    th2.classList ='header-table';
-    th3.classList ='header-table';
-    th4.classList ='header-table';
-    th5.classList ='header-table';
-    th6.classList ='header-table';
-    th7.classList ='header-table';
-    th8.classList ='header-table';
-
-    th8.textContent = "Tipo";
-    th.textContent = "Descrição";
-    th2.textContent = "Valor Esperado";
-    th3.textContent = "Valor Efetivo";
-    th4.textContent = "Data Vencimento";
-    th5.textContent ="Data Pagamento";
-    th6.textContent = "Status";
-    th7.textContent = "Ações";
-
-    tr.appendChild(th8)
-    tr.appendChild(th)
-    tr.appendChild(th2)
-    tr.appendChild(th3)
-    tr.appendChild(th4)
-    tr.appendChild(th5)
-    tr.appendChild(th6)
-    tr.appendChild(th7)
-    */
-    //tabela.appendChild(tr)
-
 
     dados.forEach(e=>{
         const tr = document.createElement('tr');
@@ -313,7 +290,7 @@ function chamaModalPagar(id){
 }
 
 function pagar(){
-    modalLoading.classList.toggle('oculta');
+    //modalLoading.classList.toggle('oculta');
     payload = {
         dataPagamento: formPagar[0][4].value,
         valorEfetivo: formPagar[0][3].value.replace(/(\d{0,3})(\.?)(\d+)(\,)(\d{2})/, "$1$3.$5")
@@ -322,15 +299,18 @@ function pagar(){
     let url = `${urlP}entradasSaidas/pagarParcela/${idParcelaAtual}`
     xhr.open('POST', url, true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    // xhr.setRequestHeader('Access-Control-Allow-Origin', 'xhr://localhost:5500');
-    // xhr.setRequestHeader('Access-Control-Allow-Credentials', 'true');
     xhr.onreadystatechange = function () {//Call a function when the state changes.
         if (xhr.readyState == 4 && xhr.status == 200) {
             listarParcelasMensal();
+            setTimeout(()=>{
+                carregaIndicadores();
+                modalLoading.classList.toggle('oculta');
+            },300)
             modalPagar.toggle()
             const toast = new bootstrap.Toast(toastSucesso);
             toast.show();
         }else{
+            modalLoading.classList.toggle('oculta');
             const toast = new bootstrap.Toast(toastErro);
             modalPagar.toggle()
             toast.show();
@@ -338,88 +318,46 @@ function pagar(){
     }
     xhr.send(JSON.stringify(payload));
     console.log(payload)
-
-
-
-
-
-
-    
-    // let url = `http://localhost:8080/entradasSaidas/pagarParcela/${idParcelaAtual}`
-    // xhr.open("POST", url, true);
-    // xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-    // xhr.onreadystatechange = function () { // Chama a função quando o estado mudar.
-    //     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-    //         listarParcelasMensal();
-    //         const toast = new bootstrap.Toast(toastSucesso);
-    //         toast.show();            
-    //     }else{
-    //         const toast = new bootstrap.Toast(toastErro);
-    //         modalNovaEntradaSaida.toggle();
-    //         toast.show();
-    //     }
-    // }
-    // xhr.send(JSON.stringify(payload));
     
 }
+
+
 function editar(id ){
     alert("editando conta com id " + id)
 }
-function criarElemento(nomeElemento){
-    return document.createElement(nomeElemento);
-}
-
-
-//selecionarMes();
-
-
-
 
 
 // controles dos modais
 function toggleModal(){
     document.getElementById('container-modal-id').classList.toggle('esconde')
 }
-// Seleção dos meses
 
+// indicadores
+// setTimeout(()=>{
+//     carregaIndicadores()
+// }, 600)
+function carregaIndicadores(){
+    let url =`${urlP}indicadores?fim=${dataFinal}&inicial=${dataInicial}`
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    xhr.onreadystatechange = function () { // Chama a função quando o estado mudar.
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            indicadores = JSON.parse(this.response);
+            console.log(indicadores);
+            setTimeout(()=>{
+                mostraIndicadoresNaTela(indicadores)
+            },500)
+        }
+    }
+    xhr.send();
+}
 
-// o código abaixo fazia a selação do mes atual com base no retorno do backend. A lista vinha com todas a entradas/saidas e um array com todas as parcelas
-
-// function listarMensal(){
-//     var xhr = new XMLHttpRequest();
-//     let url = `http://localhost:8080/entradasSaidas/listaMensal?fim=${filtros[0][1].value}&inicial=${filtros[0][0].value}`
-//     xhr.open("GET", url, true);
-//     xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-//     xhr.onreadystatechange = function () { // Chama a função quando o estado mudar.
-//         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-//             console.log("Cadastro efetuado com sucesso!");
-//             resultado = JSON.parse(this.response);
-//             console.log(resultado);
-//             setTimeout(()=>{
-//                 criaListaTabelaMensal(resultado)
-//             },500)
-//         }
-//     }
-//     xhr.send();
-// }
-
-// function criaListaTabelaMensal(dados){
-//     dadosProntos = []
-//     dados.forEach(e => {
-//         filtraMesAtual = e.parcelas.filter(el=> el.dataVencimento.substring(0,7) == filtros[0][0].value.substring(0,7));
-//             console.log(filtraMesAtual)
-//             dadosProntos.push({
-//                 descricao: e.descricao,
-//                 dataVencimento: filtraMesAtual[0].dataVencimento,
-//                 valorEfetivo: filtraMesAtual[0].valorEfetivo,
-//                 dataPagamento: filtraMesAtual[0].dataPagamento,
-//                 status: filtraMesAtual[0].status,
-//                 valorEsperado: filtraMesAtual[0].valorEsperado
-//              })
-        
-//     });
-//     console.log(dadosProntos)
-//     setTimeout(()=>{
-//         inserirDadosNaTela(dadosProntos)
-//     },600)
-// }
+function mostraIndicadoresNaTela(indicadores){
+    cardCustoDiario.innerText = indicadores.indicadoresFormatados.custoDiario;
+    cardTotalRecebido.innerText = indicadores.indicadoresFormatados.totalEntradasRecebidas;
+    cardTotalReceber.innerText = indicadores.indicadoresFormatados.totalEntradasAbertas;
+    cardTotalEntradas.innerText = indicadores.indicadoresFormatados.totalEntradas;
+    cardTotalPago.innerText = indicadores.indicadoresFormatados.totalSaidasPagas;
+    cardTotalAberto.innerText = indicadores.indicadoresFormatados.totalSaidasAbertas;
+    cardTotalSaidas.innerText = indicadores.indicadoresFormatados.totalSaidas;
+}
