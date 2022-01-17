@@ -77,16 +77,10 @@ function selecionarMes(mesAtual = 12) {
             }
             mes.classList = 'bg-warning text-white rounded-3';
             dataAtual(mes.attributes.value.nodeValue)
-            listarParcelasMensal();
-            setTimeout(()=>{
-                carregaIndicadores();
-            },600)
+            listarParcelasMensal();            
         });
     }
-    listarParcelasMensal();
-    setTimeout(()=>{
-        carregaIndicadores();
-    },600)
+    listarParcelasMensal();   
 }
 
 
@@ -172,6 +166,7 @@ function listarParcelasMensal(){
             console.log(resultado);
             setTimeout(()=>{
                 inserirDadosNaTela(resultado)
+                carregaIndicadores();
                 modalLoading.classList.toggle('oculta');
             },500)
         }
