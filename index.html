@@ -360,6 +360,73 @@
         </div>
     </div>
 
+    <!-- MODAL - EDITAR -->
+    <div class="modal fade" tabindex="-1" id="modal-editar" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edite ou Apague Contas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-editar" class="form-editar">
+                        <div class="row">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="descricao" class="form-control" id="descricao-form-pagar">
+                                <label for="descricao">Descrição</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="obs-Editar" class="form-label">Observações</label>
+                                <textarea class="form-control" id="obs-Editar" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <table class="table table-bordered bg-white table-striped">
+                                <thead>
+                                    <tr>                                        
+                                        <th scope="col">Data Vencimento</th>
+                                        <th scope="col">Data Pagamento</th>
+                                        <th scope="col">Valor Esperado</th>
+                                        <th scope="col">Valor Efetivo</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabela"></tbody>
+                            </table>
+                        </div>
+                        
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="pagar()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TOASTS -->
     <!-- TOAST - ERRO AO SALVAR NOVA CONTA -->
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 100">

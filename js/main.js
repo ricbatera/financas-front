@@ -9,7 +9,9 @@ const toastErro = document.getElementById('toast-erro-salvar');
 const toastSucesso = document.getElementById('toast-sucesso-salvar');
 const modalNovaEntradaSaida = new bootstrap.Modal(document.getElementById('modal-nova-entrada-saida'));
 const modalPagar = new bootstrap.Modal(document.getElementById('modal-pagar'));
+const modalEditar = new bootstrap.Modal(document.getElementById('modal-editar'));
 const formPagar = document.getElementsByClassName('form-pagar');
+const formEditar = document.getElementsByClassName('form-editar');
 const meses = document.getElementsByName('meses');
 const modalLoading = document.getElementById('modal-loading');
 // id's dos inidcadores na tela
@@ -29,6 +31,7 @@ let resultado;
 let idParcelaAtual = 0;
 const hoje = new Date();
 let indicadores;
+let listaParcelasPorId;
 
 //URL's heroku x local
 const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
@@ -131,15 +134,11 @@ function salvar(){
     xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
     xhr.onreadystatechange = function () {//Call a function when the state changes.
         if (xhr.readyState == 4 && xhr.status == 200) {
-            listarParcelasMensal();
-            setTimeout(()=>{
-                carregaIndicadores();
-            })
-            //modalLoading.classList.toggle('oculta');
             modalNovaEntradaSaida.toggle();
+            listarParcelasMensal();
+            modalLoading.classList.toggle('oculta');            
             const toast = new bootstrap.Toast(toastSucesso);
             toast.show();
-            //toggleModal();
         }else{
             const toast = new bootstrap.Toast(toastErro);
             modalNovaEntradaSaida.toggle();
@@ -164,11 +163,10 @@ function listarParcelasMensal(){
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             resultado = JSON.parse(this.response);
             console.log(resultado);
-            setTimeout(()=>{
-                inserirDadosNaTela(resultado)
-                carregaIndicadores();
-                modalLoading.classList.toggle('oculta');
-            },500)
+            setTimeout(()=>carregaIndicadores(), 100);
+            setTimeout(()=>inserirDadosNaTela(resultado),500);
+            setTimeout(()=>modalLoading.classList.toggle('oculta'), 800);
+            ;
         }
     }
     xhr.send();
@@ -179,7 +177,6 @@ function listarParcelasMensal(){
 
 function inserirDadosNaTela(dados){
     limparTabela();
-
     dados.forEach(e=>{
         const tr = document.createElement('tr');
         const td = document.createElement('td');
@@ -280,8 +277,34 @@ function chamaModalPagar(id){
     }else{
         console.log('não tem id')
     }
-    
+}
 
+function editar(id){
+    modalEditar.toggle();
+    console.log(formEditar)
+    if(id){
+        carregaParcelasPorId(id);
+        idParcelaAtual = id;
+        resultado.forEach(e=>{
+            if(e.id == id){
+                formEditar[0][0].value = e.entradaSaida.descricao;
+                formEditar[0][1].value = e.entradaSaida.observacoes;
+            }
+        })
+    }
+}
+
+function carregaParcelasPorId(id){
+    let url =`${urlP}entradasSaidas/buscarEntradaSaida/${id}`
+    xhr.open("GET", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    xhr.onreadystatechange = function () { // Chama a função quando o estado mudar.
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            listaParcelasPorId = JSON.parse(this.response);
+            console.log(listaParcelasPorId);
+        }
+    }
+    xhr.send();
 }
 
 function pagar(){
@@ -315,12 +338,6 @@ function pagar(){
     console.log(payload)
     
 }
-
-
-function editar(id ){
-    alert("editando conta com id " + id)
-}
-
 
 // controles dos modais
 function toggleModal(){
