@@ -362,7 +362,7 @@
 
     <!-- MODAL - EDITAR -->
     <div class="modal fade" tabindex="-1" id="modal-editar" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edite ou Apague Contas</h5>
@@ -371,9 +371,14 @@
                 <div class="modal-body">
                     <form id="form-editar" class="form-editar">
                         <div class="row">
-                            <div class="form-floating mb-3">
-                                <input type="text" name="descricao" class="form-control" id="descricao-form-pagar">
-                                <label for="descricao">Descrição</label>
+                            <div class="col-9 col-md-9 col-lg-9 col-xl-10 d-flex align-items-center">
+                                <div class="form-floating mb-3 w-100">
+                                    <input type="text" name="descricao" class="form-control" id="descricao-form-pagar">
+                                    <label for="descricao">Descrição</label>
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-3 col-lg-3 col-xl-2 mt-1">
+                                <button type="button" class="btn btn-lg btn-danger" data-bs-target="#modalConfirmacaoExcluir" data-bs-toggle="modal">Apagar</button>
                             </div>
                         </div>
 
@@ -421,11 +426,31 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" onclick="pagar()">Salvar</button>
+                    <button type="button" class="btn btn-primary" onclick="update()">Atualizar</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+    <!-- MODAL CONFIRMAÇÃO DE DELEÇÃO -->
+    <div class="modal fade" id="modalConfirmacaoExcluir" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirmação</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Tem certeza que deseja excluir essa Entrada / Saída e todas as parcelas?
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-danger" data-bs-dismiss="modal" onclick="apagarRegistro()">Sim, apagar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!-- TOASTS -->
     <!-- TOAST - ERRO AO SALVAR NOVA CONTA -->
