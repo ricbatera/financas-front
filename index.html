@@ -175,7 +175,7 @@
                         </div>
                         <div class="row">
                             <div class="form-floating mb-3">
-                                <input type="text" name="descricao" value="Aluguel da base" class="form-control"
+                                <input type="text" name="descricao" class="form-control"
                                     id="descricao" placeholder="Conta de Luz">
                                 <label for="descricao">Descrição</label>
                             </div>
@@ -185,8 +185,8 @@
                                 <label for="valor" class="form-label">Valor</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">R$</span>
-                                    <input type="text" name="valor" value="12,52" class="form-control" id="valor"
-                                        placeholder="100,00" onkeypress="$(this).mask('#.##0,00', {reverse: true});">
+                                    <input type="text" name="valor" class="form-control" id="valor"
+                                        placeholder="ex: 100,00" onkeypress="$(this).mask('#.##0,00', {reverse: true});">
                                 </div>
                                 <!-- Link para formatação de campos:
                                 https://www.blogson.com.br/como-formatar-campos-de-cpf-cep-telefone-e-moeda-com-jquery-jmask/ -->
@@ -194,7 +194,7 @@
                             <div class="col-7">
                                 <label for="data-vencimento" class="form-label">Data de Vencimento</label>
                                 <div class="input-group mb-3">
-                                    <input type="date" name="data-vencimento" value="2022-01-14" class="form-control"
+                                    <input type="date" name="data-vencimento" class="form-control"
                                         id="data-vencimento" placeholder="selecione a data de vencimento">
                                 </div>
                             </div>
