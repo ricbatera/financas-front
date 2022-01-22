@@ -34,8 +34,8 @@ let indicadores;
 let listaParcelasPorId;
 
 //URL's heroku x local
-const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
-//const urlP = 'http://localhost:8080/' // local;
+//const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
+const urlP = 'http://localhost:8080/' // local;
 
 
 //START DA APLICAÇÃO - FUNÇÕES ENCADEADAS QUE DEVEM SER EXECUTADAS ASSIM QUE ESSE SCRIPT FOR CHAMADO.
@@ -139,6 +139,7 @@ function salvar(){
             modalLoading.classList.toggle('oculta');            
             const toast = new bootstrap.Toast(toastSucesso);
             toast.show();
+            limparFormSalvar();
         }else{
             const toast = new bootstrap.Toast(toastErro);
             modalNovaEntradaSaida.toggle();
@@ -372,4 +373,23 @@ function mostraIndicadoresNaTela(indicadores){
     cardTotalPago.innerText = indicadores.indicadoresFormatados.totalSaidasPagas;
     cardTotalAberto.innerText = indicadores.indicadoresFormatados.totalSaidasAbertas;
     cardTotalSaidas.innerText = indicadores.indicadoresFormatados.totalSaidas;
+}
+
+function limparFormSalvar(){
+    for(let p of optionEntradaSaida){
+        if(p.id == 'saida'){
+            document.getElementById('saida-only').classList.remove('saida-only') 
+        }
+    }
+    for(let i of opcaoParcelado){
+
+        if(i.id == "sim-parcelado"){
+            inputparcela.removeAttribute('disabled')
+        }else{
+            inputparcela.setAttribute('disabled', 'true')
+            inputparcela.value = 1;       
+        }        
+    }
+
+    form[0].reset();
 }
