@@ -59,3 +59,11 @@ li{
     display: none;
 }
 
+.tabela-editar{
+    overflow-y: scroll;
+}
+
+.pagar-editar{
+color: var(--bs-table-striped-color);
+padding: 0 8px;
+}

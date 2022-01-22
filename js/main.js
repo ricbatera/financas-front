@@ -2,6 +2,7 @@
 const form = document.getElementsByClassName('form');
 const filtros = document.getElementsByClassName('filtros');
 const tabela = document.getElementById('tabela');
+const tabelaEditar = document.getElementById('tabelaEditar');
 const optionEntradaSaida = document.getElementsByName('entradaSaida');
 const opcaoParcelado = document.getElementsByName('parcelado');
 const inputparcela = document.getElementById('qtde-parcelas');
@@ -14,6 +15,8 @@ const formPagar = document.getElementsByClassName('form-pagar');
 const formEditar = document.getElementsByClassName('form-editar');
 const meses = document.getElementsByName('meses');
 const modalLoading = document.getElementById('modal-loading');
+const categorias = document.getElementsByName('categoria');
+const categoriasEditar = document.getElementsByName('categoria-editar');
 // id's dos inidcadores na tela
 const cardTotalRecebido = document.getElementById('card-total-recebido');
 const cardTotalReceber = document.getElementById('card-total-receber');
@@ -29,9 +32,12 @@ let dataInicial = '2022-02-01';
 let dataFinal = '2022-02-28';
 let resultado;
 let idParcelaAtual = 0;
+let idContaAtual = 0;
 const hoje = new Date();
 let indicadores;
 let listaParcelasPorId;
+let categoria = "Ricardo";
+let categoriaEditar = "Ricardo";
 
 //URL's heroku x local
 const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
@@ -111,8 +117,8 @@ function salvar() {
 
     console.log(form)
     const marcadoPago = document.getElementById('marcar-pago');
-    const categorias = document.getElementsByName('categoria');
-    let categoria = "Ricardo"
+    
+    
     for (let cat of categorias) {
         if (cat.checked) {
             categoria = cat.value
@@ -124,7 +130,8 @@ function salvar() {
         dataVencimento: form[0][4].value,
         valor: form[0][3].value.replace(/(\d{0,3})(\.?)(\d+)(\,)(\d{2})/, "$1$3.$5"),
         qtdeParcelas: form[0][8].value,
-        custoDiario: form[0][11].checked,
+        custoDiario: form[0][0].checked ? form[0][11].checked : false,
+        //custoDiario: form[0][11].checked,
         observacoes: form[0][5].value,
         recorrente: form[0][6].checked,
         pago: marcadoPago.checked,
@@ -190,16 +197,27 @@ function inserirDadosNaTela(dados) {
         const td8 = document.createElement('td');
         const pagar = document.createElement('a');
         const editar = document.createElement('a');
+        const icone = document.createElement('i');
+        const iconeEditar = document.createElement('i');
 
         pagar.href = 'javascript:void(0)';
         pagar.id = e.id;
-        pagar.classList = 'pagar-editar'
-        pagar.textContent = 'Pagar'
-
+        pagar.classList = 'pagar-editar';
+        icone.classList = 'fas fa-hand-holding-usd';
+        pagar.setAttribute('data-bs-toggle', 'tooltip');
+        pagar.setAttribute('data-bs-placement', 'top');
+        pagar.setAttribute('title', 'Pagar ou Receber');
+        pagar.insertAdjacentElement('beforeend', icone)
+        //data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"
+        
         editar.href = 'javascript:void(0)';
         editar.id = e.id;
-        editar.classList = 'pagar-editar'
-        editar.textContent = 'Editar'
+        editar.setAttribute('data-bs-toggle', 'tooltip');
+        editar.setAttribute('data-bs-placement', 'top');
+        editar.setAttribute('title', 'Editar ou Apagar');
+        editar.classList = 'pagar-editar';
+        iconeEditar.classList = 'far fa-edit';
+        editar.insertAdjacentElement('beforeend', iconeEditar);
 
         td8.textContent = e.entradaSaida.tipoEntradaSaida;
         td.textContent = e.entradaSaida.descricao;
@@ -222,7 +240,6 @@ function inserirDadosNaTela(dados) {
         td5.textContent = dataFormatada2;
         td6.textContent = e.status;
         td7.insertAdjacentElement('beforeend', pagar)
-        td7.insertAdjacentText('beforeend', ' - ')
         td7.insertAdjacentElement('beforeend', editar)
 
         tr.appendChild(td8)
@@ -241,6 +258,12 @@ function inserirDadosNaTela(dados) {
 function limparTabela() {
     while (tabela.firstChild) {
         tabela.removeChild(tabela.firstChild);
+    }
+}
+
+function limparTabelaEditar() {
+    while (tabelaEditar.firstChild) {
+        tabelaEditar.removeChild(tabelaEditar.firstChild);
     }
 }
 
@@ -268,6 +291,7 @@ function chamaModalPagar(id) {
         idParcelaAtual = id;
         resultado.forEach(e => {
             if (e.id == id) {
+                idContaAtual = e.entradaSaida.id
                 formPagar[0][0].value = e.entradaSaida.descricao;
                 formPagar[0][1].value = e.valorEsperado.toLocaleString('pt-br', { minimumFractionDigits: 2 });
                 formPagar[0][2].value = e.dataVencimento;
@@ -282,16 +306,29 @@ function chamaModalPagar(id) {
 
 function editar(id) {
     modalEditar.toggle();
-    console.log(formEditar)
+    //console.log(formEditar)
     if (id) {
         idParcelaAtual = id;
         resultado.forEach(e => {
             if (e.id == id) {
+                idContaAtual = e.entradaSaida.id
+                custoD = document.getElementsByName('custo-diario-edita');
                 carregaParcelasPorId(e.entradaSaida.id);
                 formEditar[0][0].value = e.entradaSaida.descricao;
                 formEditar[0][2].value = e.entradaSaida.observacoes;
+                for(let p of categoriasEditar){
+                    if(e.entradaSaida.categoria == p.value){
+                        p.checked = true
+                    }
+                }
+                if(e.entradaSaida.custoDiario){
+                    formEditar[0][7].checked = true
+                }else{
+                    formEditar[0][8].checked = true                   
+                }
             }
         })
+
     }
 }
 
@@ -302,10 +339,52 @@ function carregaParcelasPorId(id) {
     xhr.onreadystatechange = function () { // Chama a função quando o estado mudar.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             listaParcelasPorId = JSON.parse(this.response);
-            console.log(listaParcelasPorId);
+            //console.log(listaParcelasPorId);
+            carregarParcelasEditar(listaParcelasPorId)
         }
     }
     xhr.send();
+}
+
+function carregarParcelasEditar(listaDeParcelas) {
+    limparTabelaEditar();
+    listaDeParcelas.forEach(e => {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        const td2 = document.createElement('td');
+        const td3 = document.createElement('td');
+        const td4 = document.createElement('td');
+        const td5 = document.createElement('td');
+        const td6 = document.createElement('td');
+
+
+        const dataFormatada = new Date(e.dataVencimento + 'T00:00');
+        let dataFormatada2 = new Date(e.dataPagamento + 'T00:00')
+        if (e.dataPagamento) {
+            dataFormatada2 = dataFormatada2.toLocaleDateString();
+        } else {
+            dataFormatada2 = "";
+        }
+        if (e.valorEfetivo) {
+            valorFormatado = e.valorEfetivo.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+        } else {
+            valorFormatado = "R$ -"
+        }
+
+        td.textContent = dataFormatada.toLocaleDateString();
+        td2.textContent = dataFormatada2;
+        td3.textContent = e.valorEsperado.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+        td4.textContent = valorFormatado;
+        td5.textContent = e.status;
+
+
+        tr.appendChild(td);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+        tabelaEditar.appendChild(tr)
+    })
 }
 
 function pagar() {
@@ -409,5 +488,34 @@ function apagarRegistro(id) {
 }
 
 function update() {
-    alert('em desenvolvimento')
+    //alert('em desenvolvimento')
+    for(let p of categoriasEditar){
+        if(p.checked){
+            categoriaEditar = p.value
+        }
+    }
+    payload = {
+        descricao : formEditar[0][0].value,
+        observacoes: formEditar[0][2].value,
+        categoria: categoriaEditar,
+        custoDiario: formEditar[0][7].checked,
+        //id: idContaAtual
+    }
+
+    xhr.open('POST', `${urlP}entradasSaidas/editar/${idContaAtual}`, true);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    xhr.onreadystatechange = function () {//Call a function when the state changes.
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            modalEditar.toggle();
+            listarParcelasMensal();
+            modalLoading.classList.toggle('oculta');
+            const toast = new bootstrap.Toast(toastSucesso);
+            toast.show();
+        } else {
+            modalEditar.toggle();
+            const toast = new bootstrap.Toast(toastErro);
+            toast.show();
+        }
+    }
+    xhr.send(JSON.stringify(payload));
 }
