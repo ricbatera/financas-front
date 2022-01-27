@@ -40,8 +40,8 @@ let categoria = "Ricardo";
 let categoriaEditar = "Ricardo";
 
 //URL's heroku x local
-//const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
-const urlP = 'http://localhost:8080/' // local;
+const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
+//const urlP = 'http://localhost:8080/' // local;
 
 
 //START DA APLICAÇÃO - FUNÇÕES ENCADEADAS QUE DEVEM SER EXECUTADAS ASSIM QUE ESSE SCRIPT FOR CHAMADO.
