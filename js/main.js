@@ -40,8 +40,8 @@ let categoria = "Ricardo";
 let categoriaEditar = "Ricardo";
 
 //URL's heroku x local
-const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
-//const urlP = 'http://localhost:8080/' // local;
+//const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
+const urlP = 'http://localhost:8080/' // local;
 
 
 //START DA APLICAÇÃO - FUNÇÕES ENCADEADAS QUE DEVEM SER EXECUTADAS ASSIM QUE ESSE SCRIPT FOR CHAMADO.
@@ -204,6 +204,7 @@ function inserirDadosNaTela(dados) {
         pagar.id = e.id;
         pagar.classList = 'pagar-editar';
         icone.classList = 'fas fa-hand-holding-usd';
+        icone.id = "Pagar"
         pagar.setAttribute('data-bs-toggle', 'tooltip');
         pagar.setAttribute('data-bs-placement', 'top');
         pagar.setAttribute('title', 'Pagar ou Receber');
@@ -217,6 +218,7 @@ function inserirDadosNaTela(dados) {
         editar.setAttribute('title', 'Editar ou Apagar');
         editar.classList = 'pagar-editar';
         iconeEditar.classList = 'far fa-edit';
+        iconeEditar.id = "Editar"
         editar.insertAdjacentElement('beforeend', iconeEditar);
 
         td8.textContent = e.entradaSaida.tipoEntradaSaida;
@@ -273,11 +275,10 @@ function linksPagarEditar() {
     for (let i = 0; i < pagarEditar.length; i++) {
         pagarEditar[i].addEventListener('click', e => {
             e.preventDefault()
-            if (e.path[0].outerText == 'Pagar') {
+            if (e.path[0].id == 'Pagar') {
                 chamaModalPagar(pagarEditar[i].id)
             } else {
                 editar(pagarEditar[i].id)
-
             }
         })
     }
