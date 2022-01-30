@@ -17,6 +17,9 @@ const meses = document.getElementsByName('meses');
 const modalLoading = document.getElementById('modal-loading');
 const categorias = document.getElementsByName('categoria');
 const categoriasEditar = document.getElementsByName('categoria-editar');
+const statusRadio = document.getElementsByName('status-radio');
+const tipoRadio = document.getElementsByName('tipo-radio');
+
 // id's dos inidcadores na tela
 const cardTotalRecebido = document.getElementById('card-total-recebido');
 const cardTotalReceber = document.getElementById('card-total-receber');
@@ -38,6 +41,7 @@ let indicadores;
 let listaParcelasPorId;
 let categoria = "Ricardo";
 let categoriaEditar = "Ricardo";
+const filtrosRefinados = { status: "Todos", tipo: "Todos" }
 
 //URL's heroku x local
 const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
@@ -117,8 +121,8 @@ function salvar() {
 
     console.log(form)
     const marcadoPago = document.getElementById('marcar-pago');
-    
-    
+
+
     for (let cat of categorias) {
         if (cat.checked) {
             categoria = cat.value
@@ -147,6 +151,7 @@ function salvar() {
             const toast = new bootstrap.Toast(toastSucesso);
             toast.show();
             limparFormSalvar();
+            resetFiltros();
         } else {
             const toast = new bootstrap.Toast(toastErro);
             modalNovaEntradaSaida.toggle();
@@ -210,7 +215,7 @@ function inserirDadosNaTela(dados) {
         pagar.setAttribute('title', 'Pagar ou Receber');
         pagar.insertAdjacentElement('beforeend', icone)
         //data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"
-        
+
         editar.href = 'javascript:void(0)';
         editar.id = e.id;
         editar.setAttribute('data-bs-toggle', 'tooltip');
@@ -317,15 +322,15 @@ function editar(id) {
                 carregaParcelasPorId(e.entradaSaida.id);
                 formEditar[0][0].value = e.entradaSaida.descricao;
                 formEditar[0][2].value = e.entradaSaida.observacoes;
-                for(let p of categoriasEditar){
-                    if(e.entradaSaida.categoria == p.value){
+                for (let p of categoriasEditar) {
+                    if (e.entradaSaida.categoria == p.value) {
                         p.checked = true
                     }
                 }
-                if(e.entradaSaida.custoDiario){
+                if (e.entradaSaida.custoDiario) {
                     formEditar[0][7].checked = true
-                }else{
-                    formEditar[0][8].checked = true                   
+                } else {
+                    formEditar[0][8].checked = true
                 }
             }
         })
@@ -408,6 +413,7 @@ function pagar() {
             modalPagar.toggle()
             const toast = new bootstrap.Toast(toastSucesso);
             toast.show();
+            resetFiltros();
         } else {
             modalLoading.classList.toggle('oculta');
             const toast = new bootstrap.Toast(toastErro);
@@ -490,13 +496,13 @@ function apagarRegistro(id) {
 
 function update() {
     //alert('em desenvolvimento')
-    for(let p of categoriasEditar){
-        if(p.checked){
+    for (let p of categoriasEditar) {
+        if (p.checked) {
             categoriaEditar = p.value
         }
     }
     payload = {
-        descricao : formEditar[0][0].value,
+        descricao: formEditar[0][0].value,
         observacoes: formEditar[0][2].value,
         categoria: categoriaEditar,
         custoDiario: formEditar[0][7].checked,
@@ -519,4 +525,90 @@ function update() {
         }
     }
     xhr.send(JSON.stringify(payload));
+}
+
+//listener dos filtros
+
+for (let i of statusRadio) {
+    i.addEventListener('change', (() => {
+        for (let t of statusRadio) {
+            if (t.checked) {
+                filtrosRefinados.status = t.value;
+            }
+        }
+        console.log(filtrosRefinados)
+        executarFiltros();
+    }))
+}
+
+for (let i of tipoRadio) {
+    i.addEventListener('change', () => {
+        for (let t of tipoRadio) {
+            if (t.checked) {
+                filtrosRefinados.tipo = t.value;
+            }
+        }
+        console.log(filtrosRefinados)
+        executarFiltros();
+    })
+}
+
+function executarFiltros() {
+    let listaFiltrada;
+    switch (filtrosRefinados.status) {
+        case 'Todos':
+            filtraEntradasESaidas(resultado);
+            break;
+        case 'Aberto':
+            listaFiltrada = resultado.filter(e => e.status == 'Aberto');
+            filtraEntradasESaidas(listaFiltrada);
+            break;
+        case 'Pago':
+            listaFiltrada = resultado.filter(e => e.status == 'Pago');
+            filtraEntradasESaidas(listaFiltrada);
+            break;
+        case 'Vencidos':
+            listaFiltrada = filtrarVencidos(resultado);
+            filtraEntradasESaidas(listaFiltrada);
+            break;
+        case 'No Prazo':
+            listaFiltrada = filtrarNaoVencidos(resultado);
+            filtraEntradasESaidas(listaFiltrada);
+            break;
+    }
+    //filtraEntradasESaidas(resultado);
+}
+
+function filtraEntradasESaidas(lista) {
+    let listaFiltrada;
+    switch (filtrosRefinados.tipo) {
+        case 'Todos':
+            inserirDadosNaTela(lista)
+            break;
+        case 'Entrada':
+            listaFiltrada = lista.filter(e => e.entradaSaida.tipoEntradaSaida == 'Entrada')
+            inserirDadosNaTela(listaFiltrada)
+            break;
+        case 'Saida':
+            listaFiltrada = lista.filter(e => e.entradaSaida.tipoEntradaSaida == 'Saída')
+            inserirDadosNaTela(listaFiltrada)
+            break;
+    }
+}
+
+function filtrarVencidos(lista) {
+    let listaVencidos = lista.filter(e => e.status == "Aberto" && new Date(e.dataVencimento + 'T00:00') < Date.now());
+    console.log(listaVencidos)
+    return listaVencidos;
+}
+function filtrarNaoVencidos(lista) {
+    let listaNaoVencidos = lista.filter(e => e.status == "Aberto" && new Date(e.dataVencimento + 'T00:00') > Date.now())
+    return listaNaoVencidos;
+}
+
+function resetFiltros(){
+    statusRadio[0].checked = true;
+    filtrosRefinados.tipo = "Todos"
+    tipoRadio[0].checked = true;
+    filtrosRefinados.status = "Todos";
 }
