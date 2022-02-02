@@ -245,7 +245,11 @@ function inserirDadosNaTela(dados) {
             dataFormatada2 = "";
         }
         td5.textContent = dataFormatada2;
-        td6.textContent = e.status;
+        td6.textContent = new Date() > new Date(e.dataVencimento) && e.status == "Aberto"? "Atrasado": e.status;
+        if(td6.textContent == "Atrasado"){
+            td6.classList.add('atrasado');
+        }
+        // td6.textContent = e.status;
         td7.insertAdjacentElement('beforeend', pagar)
         td7.insertAdjacentElement('beforeend', editar)
 
