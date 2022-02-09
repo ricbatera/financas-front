@@ -231,6 +231,11 @@ function inserirDadosNaTela(dados) {
         editar.insertAdjacentElement('beforeend', iconeEditar);
 
         td8.textContent = e.entradaSaida.tipoEntradaSaida;
+        if(td8.textContent == "Entrada"){
+            td8.classList.add('entrada-bg')
+        }else{
+            td8.classList.add('saida-bg')
+        }
         td.textContent = e.entradaSaida.descricao;
         td2.textContent = e.valorEsperado.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         let valorFormatado

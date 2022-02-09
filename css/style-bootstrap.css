@@ -78,3 +78,11 @@ padding: 0 8px;
     background-color: #FF3333 !important;
     color: #fff !important;
 }
+.entrada-bg{
+    background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity))!important;
+    color: #fff !important;
+}
+.saida-bg{
+    background-color: rgba(var(--bs-warning-rgb),var(--bs-bg-opacity)) !important;
+    color: #fff !important;
+}
