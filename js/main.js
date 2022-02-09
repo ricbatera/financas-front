@@ -128,6 +128,10 @@ function salvar() {
             categoria = cat.value
         }
     }
+    if(!form[0][3].value){
+        alert("Valor não pode ficar em branco")
+        return
+    }
     payload = {
         descricao: form[0][2].value,
         tipoEntradaSaida: form[0][0].checked ? "Saída" : "Entrada",
