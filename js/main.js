@@ -341,9 +341,9 @@ function editar(id) {
                     }
                 }
                 if (e.entradaSaida.custoDiario) {
-                    formEditar[0][7].checked = true
+                    formEditar[0][12].checked = true
                 } else {
-                    formEditar[0][8].checked = true
+                    formEditar[0][13].checked = true
                 }
             }
         })
@@ -518,7 +518,7 @@ function update() {
         descricao: formEditar[0][0].value,
         observacoes: formEditar[0][2].value,
         categoria: categoriaEditar,
-        custoDiario: formEditar[0][7].checked,
+        custoDiario: formEditar[0][12].checked,
         //id: idContaAtual
     }
 
