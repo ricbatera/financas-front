@@ -44,8 +44,8 @@ let categoriaEditar = "Ricardo";
 const filtrosRefinados = { status: "Todos", tipo: "Todos" }
 
 //URL's heroku x local
-const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
-//const urlP = 'http://localhost:8080/' // local;
+//const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
+const urlP = 'http://localhost:8080/' // local;
 //const urlP = 'https://18.231.96.153:8080/' // AWS;
 
 
