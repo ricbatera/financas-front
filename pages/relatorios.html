@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - Java Gás</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/d98da0308f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/relatorios.css">
+</head>
+
+<body>
+    <header>Relatório de entradas e saídas mensais</header>
+    <nav>
+        <ul id="menu-meses" name="menu-meses">
+            <li><a href="#" class="menu-meses">Janeiro</a></li>
+            <li><a href="#" class="menu-meses">Fevereiro</a></li>
+            <li><a href="#" class="menu-meses">Março</a></li>
+            <li><a href="#" class="menu-meses">Abril</a></li>
+            <li><a href="#" class="menu-meses">Maio</a></li>
+            <li><a href="#" class="menu-meses">Junho</a></li>
+            <li><a href="#" class="menu-meses">Julho</a></li>
+            <li><a href="#" class="menu-meses">Agosto</a></li>
+            <li><a href="#" class="menu-meses">Setembro</a></li>
+            <li><a href="#" class="menu-meses">Outubro</a></li>
+            <li><a href="#" class="menu-meses">Novembro</a></li>
+            <li><a href="#" class="menu-meses">Dezembro</a></li>
+        </ul>
+    </nav>
+    <!--  -->
+    <div class="container painel">
+        <div class="saidas">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumo das Saídas</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Procurar um texto para colocar aqui</h6>
+                    <div class="linha">
+                        <div class="campo1">Descrição</div>
+                        <div class="campo2">Valor</div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-geral">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Geral</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="geral-estimado">R$ 13.254,25</span></p>
+                            <p>Efetivo <span id="geral-efetivo">R$ 13.254,25</span></p>
+                            <p>Total <span id="geral-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-combustivel">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Combústivel</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="combustivel-estimado">R$ 13.254,25</span></p>
+                            <p>Efetivo <span id="combustivel-efetivo">R$ 13.254,25</span></p>
+                            <p>Total <span id="combustivel-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-salario">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Salários</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="salario-estimado">R$ 13.254,25</span></p>
+                            <p>Efetivo <span id="salario-efetivo">R$ 13.254,25</span></p>
+                            <p>Total <span id="salario-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-adiantamento">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Adiantamentos</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="vale-estimado">R$ 13.254,25</span></p>
+                          <p>Efetivo <span id="vale-efetivo">R$ 13.254,25</span></p>
+                          <p>Total <span id="vale-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-vt">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Vale Transporte</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="vt-estimado">R$ 13.254,25</span></p>
+                          <p>Efetivo <span id="vt-efetivo">R$ 13.254,25</span></p>
+                          <p>Total <span id="vt-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-vr">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Vale Refeição</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="vr-estimado">R$ 13.254,25</span></p>
+                          <p>Efetivo <span id="vr-efetivo">R$ 13.254,25</span></p>
+                          <p>Total <span id="vr-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-gas">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Gás</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="gas-estimado">R$ 13.254,25</span></p>
+                          <p>Efetivo <span id="gas-efetivo">R$ 13.254,25</span></p>
+                          <p>Total <span id="gas-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-eletrica">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Elétrica</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="eletrica-estimado">R$ 13.254,25</span></p>
+                          <p>Efetivo <span id="eletrica-efetivo">R$ 13.254,25</span></p>
+                          <p>Total <span id="eletrica-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="advertencia" id="advertencia-hidraulica">Atenção! Existem contas não pagas nessa categoria, para o relatório ficar correto deve-se pagar todas as contas dessa categoria</div>
+                        <div class="campo1">Hidráulica</div>
+                        <div class="campo2">
+                            <p>Esperado <span id="hidraulica-estimado">R$ 13.254,25</span></p>
+                          <p>Efetivo <span id="hidraulica-efetivo">R$ 13.254,25</span></p>
+                          <p>Total <span id="hidraulica-total">R$ 13.254,25</span></p>
+                        </div>
+                    </div>
+                    <div class="linha">
+                        <div class="campo1">Total Previsto para o mês</div>
+                        <div class="campo2" id="total-previsto-mes">1.520,32</div>
+                    </div>
+                    <div class="linha">
+                        <div class="campo1">Gasto Efetivo do mês</div>
+                        <div class="campo2" id="total-efetivo-mes">1.520,32</div>
+                    </div>
+                    <div class="linha">
+                        <div class="campo1">Resultado</div>
+                        <div class="campo2" id="total-resultado-mes">1.520,32</div>
+                    </div>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="../js/relatorios.js"></script>
+</body>
+
+</html>

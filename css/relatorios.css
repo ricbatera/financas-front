@@ -1,0 +1,82 @@
+/* RESET CSS */
+
+body{
+    font-family: 'Nunito', Arial, Helvetica, sans-serif;
+    color: #222;
+    padding-top: 100px;
+}
+body, p, ul, li, a, h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+img{
+    display: block;
+    max-width: 100%;
+}
+*{
+    box-sizing: border-box;
+}
+
+/* NAVGEGAÇÃO */
+
+nav>ul{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+nav>ul>li>a{
+    padding: 10px 20px;
+    color: #aaa;
+    background-color: #222;
+}
+nav>ul>li>a:hover{
+    color: #fff;
+    transition: all 0.2s;    
+}
+
+.mes-selecionado{
+    background-color: #444;
+    color: yellow;
+    transition: all 0.2s;
+}
+
+/* painel geral */
+
+.painel{
+    margin-top: 50px;
+}
+
+.linha{
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    border-bottom: 1px #222 solid;
+    position: relative;
+}
+.campo1{
+    flex: 3;
+}
+
+.campo2{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.advertencia{
+    position: absolute;
+    left: 300px;
+    width: 500px;
+    text-align: center;
+    background-color: #dc3545;
+    color: #fff;
+    padding: 5px 0;
+}
