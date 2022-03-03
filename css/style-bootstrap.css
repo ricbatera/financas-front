@@ -5,6 +5,10 @@ li{
    list-style: none; 
 }
 
+a{
+    text-decoration: none;
+}
+
 /* calendário */
 .box-meses{
     display: flex;
@@ -85,4 +89,20 @@ padding: 0 8px;
 .saida-bg{
     background-color: rgba(var(--bs-warning-rgb),var(--bs-bg-opacity)) !important;
     color: #fff !important;
+}
+
+.relat{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.link-relat{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #0d6efd;
+    color: #fff;
+}
+.link-relat:hover{
+    background-color: #0b5ed7;
+    color: #fff;
 }
