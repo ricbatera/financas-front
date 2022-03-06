@@ -19,6 +19,7 @@ const categorias = document.getElementsByName('categoria');
 const categoriasEditar = document.getElementsByName('categoria-editar');
 const statusRadio = document.getElementsByName('status-radio');
 const tipoRadio = document.getElementsByName('tipo-radio');
+const campoPesquisa = document.getElementById('campo-pesquisa')
 
 // id's dos inidcadores na tela
 const cardTotalRecebido = document.getElementById('card-total-recebido');
@@ -86,6 +87,7 @@ function selecionarMes(mesAtual = 12) {
         }
         mes.addEventListener('click', ev => {
             // ev.preventDefault()
+            campoPesquisa.value = "";
             for (let i of meses) {
                 i.classList.remove('bg-warning', 'text-white');
             }
@@ -625,4 +627,27 @@ function resetFiltros(){
     filtrosRefinados.tipo = "Todos"
     tipoRadio[0].checked = true;
     filtrosRefinados.status = "Todos";
+}
+
+// funções para pesquisar.
+
+campoPesquisa.addEventListener('keyup', e=>{
+    e.preventDefault();
+    pesquisar(campoPesquisa.value)
+})
+
+function pesquisar(valor){
+    const lista = resultado.filter(r=> contem(valor, r.entradaSaida.descricao) || contem(valor, r.entradaSaida.observacoes == valor));
+    inserirDadosNaTela(lista);
+}
+
+function contem(valorProcurado, valorFornecido){
+    valorFornecido = valorFornecido.toString();
+    valorProcurado = valorProcurado.toLowerCase();
+    valorFornecido = valorFornecido.toLowerCase();
+    if(valorFornecido.includes(valorProcurado)){
+        return true;
+    }else{
+        return false;
+    }
 }
