@@ -164,7 +164,7 @@ function setaData() {
 
 function calculaIndicadores() {
     let tiposEntradasSaidas = ["Saída", "Entrada"];
-    let categorias = ["VR", "VT", "Salário", "Elétrica", "Hidraúlica", "Geral", "Combústivel", "Gás", "Vale"]
+    let categorias = ["VR", "VT", "Salário", "Elétrica", "Hidraúlica", "Geral", "Combustível", "Gás", "Vale"]
     indicadores = [];
     totais = [];
     //filtra as saídas - e em seguida refina.
@@ -311,7 +311,7 @@ function insereIndicadoresSaidasNaTela(listaIndicadores, listaTotais) {
                         advertenciaGeral.style.display = "block";
                     }
                     break;
-                case "Combústivel":
+                case "Combustível":
                     valorCombustivelEfetivo.textContent = indicador.Efetivo.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
                     valorCombustivelEstimado.textContent = indicador.Esperado.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
                     if (indicador.resul > 0) {
