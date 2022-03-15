@@ -1,0 +1,38 @@
+html, body{
+    height: 100vh;
+}
+li{
+    list-style: none; 
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.tela-login{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteudo-login{
+    height: 500px;
+    width: 600px;
+    box-shadow: 17px 11px 38px -5px rgba(217,217,217,1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formulario{
+    width: 60%;
+}
+
+.btn-width{
+    width: 40%;
+    display: block;
+    margin: 0 auto;
+}
