@@ -51,9 +51,9 @@ const totalEfetivoMes = document.getElementById('total-efetivo-mes');
 const totalResultadoMes = document.getElementById('total-resultado-mes');
 
 //URL's heroku x local
-const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
+//const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
 //const urlP = 'http://localhost:8080/' // local;
-//const urlP = 'http://18.231.96.153:8080/' // AWS;
+const urlP = 'http://3.93.220.176:8080/' // AWS;
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
