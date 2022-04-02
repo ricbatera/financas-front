@@ -48,7 +48,8 @@ const filtrosRefinados = { status: "Todos", tipo: "Todos" }
 //const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
 //const urlP = 'http://localhost:8080/' // local;
 //const urlP = 'http://54.165.200.215:8080/' // AWS;
-const urlP = 'http://54.172.244.249:8080/' // AWS LOJA;
+//const urlP = 'http://54.172.244.249:8080/' // AWS LOJA;
+const urlP = 'http://54.81.115.220/:8080/' // AWS LOJA;
 
 
 //START DA APLICAÇÃO - FUNÇÕES ENCADEADAS QUE DEVEM SER EXECUTADAS ASSIM QUE ESSE SCRIPT FOR CHAMADO.
