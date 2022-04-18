@@ -53,9 +53,9 @@ const totalResultadoMes = document.getElementById('total-resultado-mes');
 //URL's heroku x local
 //const urlP = 'https://backend-financeiro-api.herokuapp.com/' // heroku;
 //const urlP = 'http://localhost:8080/' // local;
- const urlP = 'http://44.203.124.249:8080/' // AWS;
+// const urlP = 'http://44.203.124.249:8080/' // AWS;
 //const urlP = 'http://54.172.244.249:8080/' // AWS LOJA;
-//const urlP = 'http://54.146.251.35:8080/' // AWS LOJA;
+const urlP = 'http://54.225.20.45:8080/' // AWS LOJA;
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
