@@ -55,7 +55,7 @@ const totalResultadoMes = document.getElementById('total-resultado-mes');
 //const urlP = 'http://localhost:8080/' // local;
 // const urlP = 'http://44.203.124.249:8080/' // AWS;
 //const urlP = 'http://54.172.244.249:8080/' // AWS LOJA;
-const urlP = 'http://54.225.20.45:8080/' // AWS LOJA;
+const urlP = 'http://sistema.javagas.com.br:8080/' // AWS LOJA;
 
 // variáveis globais
 let xhr = new XMLHttpRequest();
