@@ -53,6 +53,7 @@ const filtrosRefinados = { status: "Todos", tipo: "Todos" }
 const urlP = 'http://novaloja.javagas.com.br:8080/' // AWS LOJA;
 
 
+
 //START DA APLICAÇÃO - FUNÇÕES ENCADEADAS QUE DEVEM SER EXECUTADAS ASSIM QUE ESSE SCRIPT FOR CHAMADO.
 dataAtual();
 

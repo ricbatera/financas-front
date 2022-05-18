@@ -58,6 +58,7 @@ const totalResultadoMes = document.getElementById('total-resultado-mes');
 // const urlP = 'http://sistema.javagas.com.br:8080/' // AWS SISTEMA;
 const urlP = 'http://novaloja.javagas.com.br:8080/' // AWS LOJA;
 
+
 // variáveis globais
 let xhr = new XMLHttpRequest();
 let hoje = new Date;
