@@ -49,7 +49,8 @@ const filtrosRefinados = { status: "Todos", tipo: "Todos" }
 //const urlP = 'http://localhost:8080/' // local;
 //const urlP = 'http://44.203.124.249:8080/' // AWS;
 //const urlP = 'http://54.172.244.249:8080/' // AWS LOJA;
-const urlP = 'http://sistema.javagas.com.br:8080/' // AWS LOJA;
+//const urlP = 'http://sistema.javagas.com.br:8080/' // AWS SISTEMA;
+const urlP = 'http://novaloja.javagas.com.br:8080/' // AWS LOJA;
 
 
 //START DA APLICAÇÃO - FUNÇÕES ENCADEADAS QUE DEVEM SER EXECUTADAS ASSIM QUE ESSE SCRIPT FOR CHAMADO.
