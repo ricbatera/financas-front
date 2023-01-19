@@ -300,7 +300,7 @@ function linksPagarEditar() {
     for (let i = 0; i < pagarEditar.length; i++) {
         pagarEditar[i].addEventListener('click', e => {
             e.preventDefault()
-            if (e.path[0].id == 'Pagar') {
+            if (e.target.id == 'Pagar') {
                 chamaModalPagar(pagarEditar[i].id)
             } else {
                 editar(pagarEditar[i].id)
